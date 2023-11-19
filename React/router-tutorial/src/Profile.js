@@ -2,14 +2,14 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 // 프로필에서 사용 할 데이터
 const profileData = {
-  velopert: {
-    name: '김민준',
+  gildong: {
+    name: '홍길동',
     description:
-      'Frontend Engineer @ Laftel Inc. 재밌는 것만 골라서 하는 개발자'
+      'Backend Developer GildongHong'
   },
   Harper: {
     name: '이동인',
-    description: '개발하는 댄서'
+    description: 'Frontend Developer DonginLee'
   }
 };
 

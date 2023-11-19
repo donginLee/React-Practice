@@ -4,7 +4,7 @@ import {useNavigate} from 'react-router-dom';
 function HistorySample() {
     const navigate= useNavigate();
     const goBack = () => {
-        const confirm=window.confirm("정말 나가시겠어요?");
+        const confirm=window.confirm("뒤로 가겠습니까?");
         if(confirm){
             navigate(-1);
         }

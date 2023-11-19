@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 
-// Simulate a function that fetches data after a delay
 function fetchDataFromServer() {
 
     return new Promise((resolve,reject)=>{

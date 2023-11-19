@@ -1,6 +1,7 @@
-import React, {useState} from 'react';
-import styled, {css} from 'styled-components';
-import {MdAdd}from 'react-icons/md';
+import React, { useState } from 'react';
+import styled, { css } from 'styled-components';
+import { MdAdd } from 'react-icons/md';
+import { useTodoDispatch, useTodoNextId } from '../TodoContext';
 
 const CircleButton = styled.button`
     background : #38d9a9;
@@ -36,7 +37,7 @@ const CircleButton = styled.button`
     justify-content:center;
     transition: 0.125s all ease-in;
 
-    ${props=>props.open && css`
+    ${ props => props.open && css`
     background: #ff6b6b;
     &:hover {
       background: #ff8787;
@@ -54,7 +55,6 @@ width:100%;
 bottom: 0;
 left:0;
 position: absolute;
-border: 2px solid yellow;
 `;
 const InsertForm = styled.form`
   width:100%;
@@ -65,7 +65,6 @@ const InsertForm = styled.form`
   padding-right: 32px;
   padding-bottom: 72px;
 
-  border: 5px dotted gray;
 
   border-bottom-left-radius: 16px;
   border-bottom-right-radius: 16px;
@@ -84,15 +83,37 @@ box-sizing:border-box;
 
 function TodoCreate() {
     const [open, setOpen] = useState(false);
-  
+    const [value, setValue] = useState('');
+
+    const dispatch = useTodoDispatch();
+    const nextId = useTodoNextId();
+
     const onToggle = () => setOpen(!open);
-  
+    const onChange = e => setValue(e.target.value);
+    const onSubmit = e => {
+      e.preventDefault(); // 새로고침 방지
+      dispatch({
+        type: 'CREATE',
+        todo: {
+          id: nextId.current,
+          text: value,
+          done: false
+        }
+      });
+      setValue('');
+      setOpen(false);
+      nextId.current += 1;
+    };
     return (
       <>
         {open && (
           <InsertFormPositioner>
-            <InsertForm>
-              <Input autoFocus placeholder="할 일을 입력 후, Enter 를 누르세요" />
+            <InsertForm onSubmit={onSubmit}>
+              <Input
+              autoFocus
+              placeholder="할 일을 입력 후, Enter 를 누르세요" 
+              onChange={onChange}
+              value={value}/>
             </InsertForm>
           </InsertFormPositioner>
         )}
